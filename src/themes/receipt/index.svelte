@@ -3,17 +3,19 @@
   import avatar from '$lib/assets/avatar.png';
   import type {PageData} from '../../routes/$types';
   import {createMemoList} from '$lib/memo.svelte';
+  import Background from './Background.svelte';
 
   let {data, config}: {data: PageData; config: any} = $props();
   const memoList = createMemoList(() => data, config);
 </script>
 
-<div class="flex justify-center sm:m-10 min-h-screen {config.theme}">
+<div class="flex justify-center sm:m-10 min-h-screen {config.theme} relative isolate">
+  <Background />
   <div
-    class="w-full max-w-[540px] bg-[var(--card-bg)] pt-8 px-3 sm:p-5 shadow-[0_0_10px_rgba(0,0,0,0.1)] relative drop-shadow-[0px_2px_4px_rgba(0,0,0,0.1)] border-y border-dashed border-[#ccc]"
+    class="w-full max-w-[540px] bg-[var(--card-bg)] px-3 sm:p-6 pt-8 shadow-[0_0_10px_rgba(0,0,0,0.1)] relative drop-shadow-[0px_2px_4px_rgba(0,0,0,0.1)] sm:border-y border-dashed border-[#ccc]"
   >
     <header class="text-center mb-5">
-      <div class="text-3xl font-black tracking-[2px] mb-2.5">{config.title.toUpperCase()}</div>
+      <div class="text-4xl font-black tracking-[4px] mb-2.5">{config.title.toUpperCase()}</div>
       <div class="text-xs uppercase mb-2.5">
         <p>STORE: 001</p>
         <p>CASHIER: {config.author.toUpperCase()}</p>
@@ -51,9 +53,8 @@
           </div>
 
           {#each memos as memo}
-            <div class="flex gap-3 mb-5 items-start">
-              <div class="flex flex-col items-center gap-1 w-10 shrink-0">
-                <span class="text-xs font-bold">{format(memo.date, 'HH:mm')}</span>
+            <div class="flex gap-3 mb-4 items-start">
+              <div class="flex flex-col items-center gap-1 w-10 shrink-0 mt-4">
                 <div class="w-8 h-8 bg-black rounded-full overflow-hidden">
                   <img
                     src={avatar}
@@ -62,6 +63,7 @@
                     onerror={(e) => ((e.currentTarget as HTMLImageElement).style.display = 'none')}
                   />
                 </div>
+                <span class="text-xs font-bold">{format(memo.date, 'HH:mm')}</span>
               </div>
               <div
                 class="flex-1 text-[0.95rem] 

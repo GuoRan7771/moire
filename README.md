@@ -1,6 +1,6 @@
 # Moire
 
-Sync your thoughts from Apple Notes by iOS Shortcuts to the memo log site.
+Sync your thoughts from Apple Notes by Shortcuts.
 
 ## Quick Start
 

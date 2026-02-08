@@ -27,14 +27,27 @@
 <div
   class="min-h-screen max-w-3xl mx-auto p-4 sm:p-8 selection:bg-[var(--text-color)]/20 selection:text-[var(--bg-color)]"
 >
-  <header class="mb-12 flex items-end justify-between border-b-2 border-[var(--text-color)] px-2 pb-4">
+  <header class="mb-12 flex items-end justify-between border-b-2 border-[var(--text-color)] px-2 pb-4 relative">
     <div>
       <h1
         class="text-4xl text-[var(--accent-color)] drop-shadow-[2px_2px_0_rgba(181,137,0,0.2)] uppercase tracking-wider"
       >
         {config.title}
       </h1>
-      <p class="mt-2 text-[var(--text-color)] font-bold opacity-80">Version 1.0.1 [Light]</p>
+      <p class="mt-2 text-[var(--text-color)] font-bold opacity-80 uppercase text-[10px]">Version 1.0.0 [Light]</p>
+      
+      {#if memoList.selectedTag}
+        <div class="mt-6 flex items-center gap-3 animate-in fade-in slide-in-from-left-2 duration-300">
+          <span class="text-[10px] font-bold text-[var(--text-color)] opacity-60">FILTERING BY:</span>
+          <button
+            onclick={() => memoList.selectTag(null)}
+            class="bg-[var(--accent-color)] text-white px-2 py-0.5 text-[10px] font-bold border border-[var(--border-color)] shadow-[2px_2px_0_0_var(--border-color)] hover:translate-y-[-1px] hover:shadow-[3px_3px_0_0_var(--border-color)] active:translate-y-[1px] active:shadow-none transition-all flex items-center gap-2 group"
+          >
+            #{memoList.selectedTag.toUpperCase()}
+            <span class="opacity-70 group-hover:opacity-100 italic">✕</span>
+          </button>
+        </div>
+      {/if}
     </div>
     <div class="text-right text-xs text-[var(--text-color)]">
       <p>SYSTEM: ONLINE</p>
@@ -42,7 +55,7 @@
     </div>
   </header>
 
-  <div class="mx-auto grid grid-cols-1 gap-8 xl:grid-cols-2">
+  <div class="mx-auto grid grid-cols-1 gap-8 2xl:grid-cols-2" data-selected-tag={memoList.selectedTag}>
     {#each memoList.visibleMemos as memo}
       <article
         class="window-frame relative flex flex-col bg-[var(--card-bg)] border-2 border-[var(--border-color)] shadow-[6px_6px_0_0_rgba(0,43,54,0.15)] hover:translate-y-[-2px] hover:shadow-[8px_8px_0_0_rgba(0,43,54,0.15)] transition-all duration-200"
@@ -65,13 +78,13 @@
           </div>
         </div>
 
-        <div class="flex-1 p-4">
+        <div class="flex-1 py-1 px-4">
           <div
             class="leading-relaxed max-w-none text-[0.95rem] text-[var(--text-color)]
-                        [&_h1]:text-[1.2rem] [&_h1]:uppercase [&_h1]:font-black [&_h1]:mb-4 [&_h1]:mt-6 [&_h1]:text-[var(--border-color)] [&_h1]:tracking-wider
-                        [&_h2]:text-[1.1rem] [&_h2]:uppercase [&_h2]:font-bold [&_h2]:mb-3 [&_h2]:mt-5 [&_h2]:text-[var(--border-color)] [&_h2]:tracking-wider
-                        [&_h3]:text-[1.0rem] [&_h3]:font-bold [&_h3]:mb-2 [&_h3]:mt-4 [&_h3]:text-[var(--border-color)] [&_h3]:tracking-wider
-                        [&_h4]:text-[0.9rem] [&_h4]:font-bold [&_h4]:mb-2 [&_h4]:mt-3 [&_h4]:text-[var(--border-color)] [&_h4]:tracking-wider
+                        [&_h1]:text-[1.2rem] [&_h1]:font-black [&_h1]:mb-4 [&_h1]:mt-5 [&_h1]:text-[var(--border-color)] [&_h1]:tracking-wider
+                        [&_h2]:text-[1.1rem] [&_h2]:font-bold [&_h2]:mb-3 [&_h2]:mt-4 [&_h2]:text-[var(--border-color)] [&_h2]:tracking-wider
+                        [&_h3]:text-[1.0rem] [&_h3]:font-bold [&_h3]:mb-2 [&_h3]:mt-3 [&_h3]:text-[var(--border-color)] [&_h3]:tracking-wider
+                        [&_h4]:text-[0.9rem] [&_h4]:font-bold [&_h4]:mb-2 [&_h4]:mt-2 [&_h4]:text-[var(--border-color)] [&_h4]:tracking-wider
                         [&_h5]:text-[0.8rem] [&_h5]:font-bold [&_h5]:italic [&_h5]:mb-2 [&_h5]:text-[var(--border-color)] [&_h5]:tracking-wider
                         [&_p]:my-3
                         [&_a]:text-[var(--accent-color)] [&_a]:font-bold [&_a]:underline [&_a]:underline-offset-2 [&_a]:decoration-2 [&_a]:hover:bg-[var(--accent-color)] [&_a]:hover:text-white
@@ -80,8 +93,9 @@
                         [&_table]:w-full [&_table]:border-collapse [&_table]:my-4 [&_table]:text-xs [&_table]:border-2 [&_table]:border-[var(--border-color)]
                         [&_th]:bg-[var(--bg-color)] [&_th]:text-[var(--border-color)] [&_th]:p-2 [&_th]:border-b-2 [&_th]:border-dashed [&_th]:border-[var(--border-color)] [&_th]:text-center
                         [&_td]:p-2 [&_td]:border-b [&_td]:border-dashed [&_td]:border-[var(--border-color)] [&_td]:text-center
-                        [&_blockquote]:border-l-4 [&_blockquote]:border-[#859900] [&_blockquote]:bg-[#f9f2f4] [&_blockquote]:py-2 [&_blockquote]:px-4 [&_blockquote]:my-4 [&_blockquote]:italic [&_blockquote]:text-[0.9rem] [&_blockquote]:text-[#657b83]
-                        [&_.tag-link]:bg-[var(--accent-color)] [&_.tag-link]:text-white [&_.tag-link]:px-1 [&_.tag-link]:border [&_.tag-link]:border-[var(--border-color)] [&_.tag-link]:shadow-[1px_1px_0_0_var(--border-color)] [&_.tag-link]:text-[10px] [&_.tag-link]:no-underline [&_.tag-link]:mx-0.5"
+                        [&_blockquote]:border-l-4 [&_blockquote]:border-[#859900] [&_blockquote]:bg-[#f9f2f4] [&_blockquote]:py-1 [&_blockquote]:px-4 [&_blockquote]:my-4 [&_blockquote]:italic [&_blockquote]:text-[0.9rem] [&_blockquote]:text-[#657b83]
+                        [&_.tag-link]:bg-[var(--bg-color)] [&_.tag-link]:text-[var(--accent-color)] [&_.tag-link]:px-1 [&_.tag-link]:border [&_.tag-link]:border-[var(--border-color)] [&_.tag-link]:shadow-[1px_1px_0_0_var(--border-color)] [&_.tag-link]:text-[10px] [&_.tag-link]:no-underline [&_.tag-link]:mx-0.5 [&_.tag-link]:font-bold [&_.tag-link]:transition-all
+                        "
              onclick={(e) => {
                 const target = e.target as HTMLElement;
                 if (target.classList.contains('tag-link')) {
@@ -171,5 +185,31 @@
 
   .image-pixelated {
     image-rendering: pixelated;
+  }
+
+  [data-selected-tag] :global(.tag-link) {
+      transition: all 0.1s steps(2);
+  }
+
+  /* When a tag is selected, dim other tags and highlight the active one */
+  [data-selected-tag]:not([data-selected-tag="null"]) :global(.tag-link) {
+      opacity: 0.4;
+      filter: grayscale(1);
+  }
+
+  /* Active tag gets inverted pixel look */
+  [data-selected-tag="Academic"] :global(.tag-link[data-tag="Academic"]),
+  [data-selected-tag="Bento"] :global(.tag-link[data-tag="Bento"]),
+  [data-selected-tag="Cyberpunk"] :global(.tag-link[data-tag="Cyberpunk"]),
+  [data-selected-tag="Pixel"] :global(.tag-link[data-tag="Pixel"]),
+  [data-selected-tag="Receipt"] :global(.tag-link[data-tag="Receipt"]),
+  /* Generic selector that works for any tag if the attribute matches exactly */
+  [data-selected-tag]:not([data-selected-tag="null"]) :global(.tag-link.active) {
+      opacity: 1 !important;
+      filter: grayscale(0) !important;
+      background-color: var(--border-color) !important;
+      color: var(--bg-color) !important;
+      border-color: var(--border-color) !important;
+      box-shadow: 2px 2px 0 0 var(--accent-color) !important;
   }
 </style>

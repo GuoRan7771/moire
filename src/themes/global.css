@@ -7,7 +7,7 @@
 }
 
 body.receipt {
-  --bg-color: #c8c8c8;
+  --bg-color: transparent;
   --text-color: #000000;
   --card-bg: #fffefe;
   --font-family: 'zpix', monospace;
