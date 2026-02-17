@@ -1,5 +1,5 @@
 export const config = {
-  title: "说点想说的",
+  title: "说点想说的，未经审查（包括自我审查）！",
   author: "Guo",
   theme: "receipt",
   pageSize: 10,
