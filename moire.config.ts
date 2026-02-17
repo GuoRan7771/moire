@@ -1,5 +1,5 @@
 export const config = {
-  title: "说点想说的，未经审查（包括自我审查）！",
+  title: "未经审查的Blog",
   author: "Guo",
   theme: "academic",
   pageSize: 10,
