@@ -1,12 +1,12 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
-  import {format} from 'date-fns';
+  import { format } from 'date-fns';
   import avatar from '$lib/assets/avatar.png';
-  import type {PageData} from '../../routes/$types';
-  import {createMemoList} from '$lib/memo.svelte';
+  import type { PageData } from '../../routes/$types';
+  import { createMemoList } from '$lib/memo.svelte';
   import Background from './Background.svelte';
 
-  let {data, config}: {data: PageData; config: any} = $props();
+  let { data, config }: { data: PageData; config: any } = $props();
   const memoList = createMemoList(() => data, config);
 
   $effect(() => {
@@ -16,10 +16,13 @@
   });
 </script>
 
-<div class="flex justify-center sm:m-10 min-h-screen {config.theme} relative isolate">
-  <Background />
+<div class="min-h-screen w-screen relative isolate {config.theme}">
+  <div class="fixed inset-0 -z-10">
+    <Background />
+  </div>
+
   <div
-    class="w-full max-w-[540px] bg-[var(--card-bg)] px-4 sm:p-6 pt-8 shadow-[0_0_10px_rgba(0,0,0,0.1)] relative drop-shadow-[0px_2px_4px_rgba(0,0,0,0.1)] sm:border-y border-dashed border-[#ccc]"
+    class="w-full min-h-screen bg-[var(--card-bg)] px-6 sm:px-10 md:px-12 lg:px-20 pt-8 pb-10 relative shadow-[0_0_10px_rgba(0,0,0,0.1)] drop-shadow-[0px_2px_4px_rgba(0,0,0,0.1)]"
   >
     <header class="text-center mb-5">
       <div class="text-4xl font-black tracking-[4px] mb-2.5">{config.title.toUpperCase()}</div>
@@ -33,10 +36,13 @@
       {#if memoList.selectedTag}
         <div class="mb-5 text-center">
           <div class="text-xs font-bold mb-2">
-            FILTERING BY: <button
+            FILTERING BY:
+            <button
               class="bg-transparent border border-black px-1 py-0.5 text-xs cursor-pointer uppercase transition-all duration-200 inline-block hover:text-black [&.active]:text-black active"
-              onclick={() => memoList.selectTag(null)}>#{memoList.selectedTag}</button
+              onclick={() => memoList.selectTag(null)}
             >
+              #{memoList.selectedTag}
+            </button>
           </div>
           <div class="font-bold overflow-hidden whitespace-nowrap my-2.5">--------------------------------</div>
         </div>
@@ -72,8 +78,9 @@
                 </div>
                 <span class="text-xs font-bold">{format(memo.date, 'HH:mm')}</span>
               </div>
+
               <div
-                class="flex-1 text-[0.95rem] 
+                class="flex-1 text-[0.95rem]
                   [&_h1]:text-[1.2rem] [&_h1]:uppercase [&_h1]:font-black [&_h1]:mb-2 [&_h1]:mt-4
                   [&_h2]:text-[1.1rem] [&_h2]:uppercase [&_h2]:font-bold [&_h2]:mb-2 [&_h2]:mt-4
                   [&_h3]:text-[1.0rem] [&_h3]:font-bold [&_h3]:mb-1.5 [&_h3]:mt-3
@@ -99,15 +106,17 @@
       {/each}
 
       {#if data.memos.length === 0}
-          <p class="text-center">NO DATA.</p>
+        <p class="text-center">NO DATA.</p>
       {/if}
 
       {#if memoList.visibleCount < memoList.filteredMemos.length}
         <div class="text-center my-5">
           <button
             class="bg-transparent border-2 dashed border-black px-4 py-1 text-xs cursor-pointer uppercase font-bold hover:bg-black hover:text-white transition-colors"
-            onclick={memoList.loadMore}>[ PRINT MORE... ]</button
+            onclick={memoList.loadMore}
           >
+            [ PRINT MORE... ]
+          </button>
         </div>
       {/if}
     </div>
@@ -122,7 +131,12 @@
       <div class="my-5 text-[#999]">- - - - - - - - - - - - - - -</div>
 
       <p class="mt-8 mb-1">© {new Date().getFullYear()} {config.author.toUpperCase()}</p>
-      <p class="mb-4">synced from Apple Notes and powered by <a href="https://moire.blog/" target="_blank" class="underline decoration-dotted hover:bg-black hover:text-white transition-colors">MOIRE.BLOG</a></p>
+      <p class="mb-4">
+        synced from Apple Notes and powered by
+        <a href="https://moire.blog/" target="_blank" class="underline decoration-dotted hover:bg-black hover:text-white transition-colors"
+          >MOIRE.BLOG</a
+        >
+      </p>
     </footer>
   </div>
 </div>
