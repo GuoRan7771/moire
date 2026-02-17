@@ -22,8 +22,16 @@
   </div>
 
   <div
-    class="w-full min-h-screen bg-[var(--card-bg)] px-6 sm:px-10 md:px-12 lg:px-20 pt-8 pb-10 relative shadow-[0_0_10px_rgba(0,0,0,0.1)] drop-shadow-[0px_2px_4px_rgba(0,0,0,0.1)]"
-  >
+  class="w-[96vw] md:w-[94vw] lg:w-[92vw] min-h-[96vh] mx-auto my-[2vh]
+         bg-[var(--card-bg)]
+         px-6 sm:px-10 md:px-12 lg:px-20
+         pt-8 pb-10
+         relative
+         shadow-[0_0_10px_rgba(0,0,0,0.1)]
+         drop-shadow-[0px_2px_4px_rgba(0,0,0,0.1)]
+         rounded-md"
+>
+
     <header class="text-center mb-5">
       <div class="text-4xl font-black tracking-[4px] mb-2.5">{config.title.toUpperCase()}</div>
       <div class="text-xs uppercase mb-2.5">
